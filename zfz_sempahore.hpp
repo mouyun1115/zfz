@@ -13,8 +13,8 @@
 * 
 * CodePage: UTF-8 
 ************************************************************/ 
-#ifndef __ZFZ_SEMPHORE_HPP_BY_NICK_2016_06_23__
-#define __ZFZ_SEMPHORE_HPP_BY_NICK_2016_06_23__
+#ifndef __ZFZ_SEMAPHORE_HPP_BY_NICK_2016_06_23__
+#define __ZFZ_SEMAPHORE_HPP_BY_NICK_2016_06_23__
 
 #include <chrono>
 #include <mutex>
@@ -25,21 +25,21 @@ namespace zfz
 
 enum 
 {
-    ZFZ_SEMPHORE_FAIL = (-1),
-    ZFZ_SEMPHORE_SUCCESS = 0,
-    ZFZ_SEMPHORE_TIME_OUT = 1
+    ZFZ_SEMAPHORE_FAIL = (-1),
+    ZFZ_SEMAPHORE_SUCCESS = 0,
+    ZFZ_SEMAPHORE_TIME_OUT = 1
 };
 
-class Semphore
+class Semaphore
 {
 public:
-    Semphore(const int init_signals = 0) : signals_(init_signals), blocked_(0) {}
-    ~Semphore() {}
+    Semaphore(const int init_signals = 0) : signals_(init_signals), blocked_(0) {}
+    ~Semaphore() {}
 
 private:
-    Semphore(const Semphore&) = delete;
-    Semphore(Semphore&&) = delete;
-    Semphore operator=(const Semphore&) = delete;
+    Semaphore(const Semaphore&) = delete;
+    Semaphore(Semaphore&&) = delete;
+    Semaphore operator=(const Semaphore&) = delete;
 
 public:
     // time_out_ms为负数时表示无限等待 
@@ -145,7 +145,7 @@ private:
     std::condition_variable cv_;
     int signals_ = 0;
     int blocked_ = 0;
-}; // class Semphore
+}; // class Semaphore
 
 } // namespace zfz
 

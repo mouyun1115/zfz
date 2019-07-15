@@ -24,7 +24,7 @@
 #include <functional>
 
 #include "zfz_sfinae.hpp"
-#include "zfz_semphore.hpp"
+#include "zfz_semaphore.hpp"
 #include "zfz_event.hpp"
 
 namespace zfz
@@ -140,7 +140,7 @@ protected:
     volatile int queue_full_flag_ = 0; // flag whether current_queue_size_ has reached to max_queue_size_ or not
     volatile int queue_need_sort_flag_ = 0; // 标志队列任务是否需要排序 
     std::mutex queue_lock_;
-    zfz::Semphore task_semphore_;
+    zfz::Semaphore task_semaphore_;
     volatile int max_queue_size_ = 1024;
     volatile int queue_ordered_flag_ = 0; // 标志队列中的任务是否已排序 
 
@@ -553,7 +553,7 @@ public:
             auto task_copy(tasks);
             task_queue_.splice(task_queue_.end(), task_copy);
             current_queue_size_ += task_size;
-            task_semphore_.signal(task_size);
+            task_semaphore_.signal(task_size);
             queue_ordered_flag_ = 0;
             return ZFZ_PROCESSOR_SUCCESS;
         }
@@ -562,7 +562,7 @@ public:
 protected:
     virtual int pop_task(TASK_LIST &tasks, const int batch_size = 1, const int wait_time_ms = (-1))
     {
-        if (task_semphore_.wait(wait_time_ms) != zfz::ZFZ_SEMPHORE_SUCCESS)
+        if (task_semaphore_.wait(wait_time_ms) != zfz::ZFZ_SEMPHORE_SUCCESS)
         {
             return ZFZ_PROCESSOR_TIME_OUT;
         }
@@ -604,7 +604,7 @@ protected:
 
         if (poped_count > 1) // semphore::wait()释放掉了一个信号，所以这里释放掉poped_count - 1个信号
         {
-            task_semphore_.release(poped_count - 1);
+            task_semaphore_.release(poped_count - 1);
         }
 
         return ZFZ_PROCESSOR_SUCCESS;
