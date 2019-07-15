@@ -562,7 +562,7 @@ public:
 protected:
     virtual int pop_task(TASK_LIST &tasks, const int batch_size = 1, const int wait_time_ms = (-1))
     {
-        if (task_semaphore_.wait(wait_time_ms) != zfz::ZFZ_SEMPHORE_SUCCESS)
+        if (task_semaphore_.wait(wait_time_ms) != zfz::ZFZ_SEMAPHORE_SUCCESS)
         {
             return ZFZ_PROCESSOR_TIME_OUT;
         }

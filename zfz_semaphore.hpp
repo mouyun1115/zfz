@@ -49,13 +49,13 @@ public:
         if (signals_ > 0)
         {
             --signals_;
-            return ZFZ_SEMPHORE_SUCCESS;
+            return ZFZ_SEMAPHORE_SUCCESS;
         }
         else
         {
             if (time_out_ms == 0)
             {
-                return ZFZ_SEMPHORE_TIME_OUT;
+                return ZFZ_SEMAPHORE_TIME_OUT;
             }
             else
             {
@@ -71,11 +71,11 @@ public:
             if (result)
             {
                 --signals_;
-                return ZFZ_SEMPHORE_SUCCESS;
+                return ZFZ_SEMAPHORE_SUCCESS;
             }
             else
             {
-                return ZFZ_SEMPHORE_TIME_OUT;
+                return ZFZ_SEMAPHORE_TIME_OUT;
             }
         }
         else
@@ -83,7 +83,7 @@ public:
             cv_.wait(guard, [&]{ return signals_ > 0; });
             --blocked_;
             --signals_;
-            return ZFZ_SEMPHORE_SUCCESS;
+            return ZFZ_SEMAPHORE_SUCCESS;
         }
     }
 
